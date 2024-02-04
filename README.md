@@ -35,7 +35,7 @@ if (!data) {
 };
 
 // when to call it
-if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+if (error.code === 11000) handleDuplicateFieldsDB(error);
 ```
 
 <br>
@@ -56,6 +56,24 @@ const handleCastErrorDB = err => {
   return new AppError(message, 400);
 };
 
+```
+
+<br>
+<br>
+
+### Token Expired Error
+* When JWT expires, it will give token expired error.
+```javascript
+// what to do after catching the error
+const handleJWTError = () => {
+  new AppError('Invalid token. Please log in again!', 401);
+}
+
+// how to catch the token error 
+if (error.name === 'JsonWebTokenError') {handleJWTError(); }
+
+error.name === 'TokenExpiredError' // returns true if token is expired
+// another error handler
 ```
 
 
