@@ -24,6 +24,7 @@ if (!data) {
 <br>
 
 # Error Types
+### Duplicate Key Error
 * what is duplicate key error index? <br> The E11000 duplicate key error index is an error that occurs when we try to insert a document into a MongoDB collection with a unique index, and the index already contains a document with the same value for the unique key. In mongoose Schema -- when I specify a field with `unique key`, and when user enters a `non-unique value` this gives an `duplicate key error`.
 ```javascript
  const handleDuplicateFieldsDB = err => {
@@ -38,8 +39,25 @@ if (error.code === 11000) error = handleDuplicateFieldsDB(error);
 ```
 
 <br>
+<br>
 
-* 
+### Cast Error
+Mongoose's `findById` method casts the `id` parameter to the type of the model's `_id` field so that it can properly query for the matching doc. 
+* CastError : Mongoose could not convert a value to the type defined in the schema path. 
+* If you set a type in `string` but what the data was a number, MAYBE this is when I will get a `cast Error`
+```javascript
+
+// how to catch the cast error
+if (error.name === 'CastError') error = handleCastErrorDB(error);
+
+// what to do to handle cast error
+const handleCastErrorDB = err => {
+  const message = `Invalid ${err.path}: ${err.value}.`;
+  return new AppError(message, 400);
+};
+
+```
+
 
 
 
