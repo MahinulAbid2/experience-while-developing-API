@@ -18,3 +18,28 @@ if (!data) {
 }
 ```
 * when you use the `!` (logical NOT) operator, it coerces the operand to a boolean value and then negates it. If the operand is a falsy value (such as `null`, `undefined`, `false`, `0`, `NaN`, or an `empty string ''`), then applying ! will result in true. If the operand is a truthy value, applying ! will result in false.
+
+
+<br>
+<br>
+
+# Error Types
+* what is duplicate key error index? <br> The E11000 duplicate key error index is an error that occurs when we try to insert a document into a MongoDB collection with a unique index, and the index already contains a document with the same value for the unique key. In mongoose Schema -- when I specify a field with `unique key`, and when user enters a `non-unique value` this gives an `duplicate key error`.
+```javascript
+ const handleDuplicateFieldsDB = err => {
+  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
+
+  const message = `Duplicate field value: ${value}. Please use another value!`;
+  return new AppError(message, 400);
+};
+
+// when to call it
+if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+```
+
+<br>
+
+* 
+
+
+
